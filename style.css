@@ -43,6 +43,10 @@ body {
 	position: relative;
 	display: flex;
 	align-self: flex-end;
+	max-width: 300px;
+	overflow: auto;
+	margin-right: 15px;
+	
 }
 
 #solution {
