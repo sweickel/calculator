@@ -38,18 +38,45 @@ function setEventListeners() {
 	for (let i = 0; i < numbers.length; i++) {
 		domId(numbers[i]).addEventListener('click', (event) => {
 				number(numbers[i]);
+		});		
+	}
+
+	for (let i = 0; i < 10; i++) {
+		document.addEventListener("keydown", (event) => {
+			if (event.keyCode === (96 + i) || event.keyCode === (48 + i)) {
+				number(numbers[i]);
+			}
 		});
 	}
 	
 	//add event listeners for operators (+,-,x,/)
 	for (let i = 0; i < 4; i++) {
 		domId(operators[i]).addEventListener('click', (event) => {
-			if (first === "") {
-				number(first);
-			}				
 			addOperator(operators[i]);
-		})
+		});	
 	}
+
+	document.addEventListener('keydown', (event) => {
+			
+			if (event.keyCode === 107) {
+				addOperator("+");
+			}	
+				else if (event.keyCode === 109) {
+					addOperator("-");
+				}			
+
+				else if (event.keyCode === 106) {
+					addOperator("x");
+				}
+
+				else if (event.keyCode === 111) {
+					addOperator("/");
+				}
+
+				else if (event.keyCode === 13) {
+					answer();
+				}
+});	
 	
 	//event listener for equals
 	domId(equals).addEventListener('click', (event) => {
@@ -65,78 +92,23 @@ function setEventListeners() {
 	
 	//decimal event listener
 	domId(decimal).addEventListener('click', (event) => {
-			
-			if (operator === "") {
-				if (first.includes(dec)) {
-					return false;
-				}	
-					else if (first === "") {
-						first += "0";
-					}	
-			}	
-				else if (operator != "") {
-					if (second.includes(dec)) {
-						return false;
-				} 
-					else if (second === "") {
-						second += "0";
-					}
-			}
-
-		number(dec);
+			addDecimal();			
 	});
 	
 	//negative-postive event listener
 	domId(negative).addEventListener('click', (event) => {
-			
-			if (operator === "") {
-				
-				if (first.includes(subtract)) {
-					first = first.split("-").pop();
-				} 
-					else if (!first.includes(subtract)) {
-						first = (subtract + first);
-					}						
-				
-				firstEl.textContent = first;
-			
-			} 
-
-			else if (operator != "") {
-				
-				if (second.includes(subtract)) {
-					second = second.split("-").pop();					
-				} 
-					else if (!second.includes(subtract)) {
-						second = (subtract + second);
-					}	
-
-				secondEl.textContent = second;
-			}		
+			addNegative();					
 	});
 	
 	//percent event listener
 	domId(percent).addEventListener('click', (event) => {
-
-		if (operator === "") {
-			if (first != "") {
-				first += per;
-				firstEl.textContent = first;
-			}	
-				else {
-					error();
-				}						
-		} 
-			else if (operator != "") {
-				if (second != "") {
-					second += per;
-					secondEl.textContent = second;
-				}	
-					else {
-						error();	
-					}								
-			}
+			addPercent();
 	});
+
+	document.addEventListener("keydown", (event) => {
+
+	});
+
 	//--global functions--//
 	
 	//clears elements for first number, second number, and operator
@@ -166,6 +138,73 @@ function setEventListeners() {
 		operatorEl.textContent = op;
 	}
 
+	function addDecimal() {
+		if (operator === "") {
+				if (first.includes(dec)) {
+					return false;
+				}	
+					else if (first === "") {
+						first += "0";
+					}	
+		}	
+			else if (operator != "") {
+				if (second.includes(dec)) {
+					return false;
+			} 
+				else if (second === "") {
+					second += "0";
+				}
+		}
+		number(dec);
+	}
+
+	function addNegative() {
+		if (operator === "") {
+				
+				if (first.includes(subtract)) {
+					first = first.split("-").pop();
+				} 
+					else if (!first.includes(subtract)) {
+						first = (subtract + first);
+					}						
+				
+				firstEl.textContent = first;
+			
+		} 
+
+			else if (operator != "") {
+				
+				if (second.includes(subtract)) {
+					second = second.split("-").pop();					
+				} 
+					else if (!second.includes(subtract)) {
+						second = (subtract + second);
+					}	
+			secondEl.textContent = second;
+		}
+	}
+
+	function addPercent() {
+		if (operator === "") {
+			if (first != "") {
+				first += per;
+				firstEl.textContent = first;
+			}	
+				else {
+					error();
+				}						
+		} 
+			else if (operator != "") {
+				if (second != "") {
+					second += per;
+					secondEl.textContent = second;
+				}	
+					else {
+						error();	
+					}								
+			}
+	}
+
 	//function that adds each number to a string and shows it on display
 	function number(num) {		
 		if (first === "") {
@@ -190,15 +229,13 @@ function setEventListeners() {
 	}
 
 	function squareRoot(num) {
-		 return Math.sqrt(num.slice(1));
+		return Math.sqrt(num.slice(1));
 	}
 
 	//calculates solution
 	function answer() {
 		let a = first;
 		let b = second;
-		let aLength = 0;
-		let bLength = 0;
 
 		if (first.includes(per)) {
 			a = percentage(parseInt(a));
@@ -230,8 +267,6 @@ function setEventListeners() {
 				b = parseInt(b);
 			}
 
-		if (first.length >= second.length)
-
 		if (operator === "+") {
 			solution = (a + b);
 		} 		
@@ -255,7 +290,7 @@ function setEventListeners() {
 				error();
 			}
 
-			
+
 		solutionEl.textContent = solution;
 		clearEl();
 	}
