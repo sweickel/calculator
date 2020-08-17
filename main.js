@@ -76,6 +76,14 @@ function setEventListeners() {
 				else if (event.keyCode === 13) {
 					answer();
 				}
+
+				else if (event.keyCode === 110) {
+					addDecimal();
+				}
+
+				else if (event.keyCode === 8) {
+					number("");
+				}
 });	
 	
 	//event listener for equals
@@ -103,10 +111,6 @@ function setEventListeners() {
 	//percent event listener
 	domId(percent).addEventListener('click', (event) => {
 			addPercent();
-	});
-
-	document.addEventListener("keydown", (event) => {
-
 	});
 
 	//--global functions--//
@@ -206,19 +210,32 @@ function setEventListeners() {
 	}
 
 	//function that adds each number to a string and shows it on display
-	function number(num) {		
+	function number(num) {
+
+	let newStr = "";
+
 		if (first === "") {
 			clearText();
 		}
 
-		if (operator === "") {			
-			first += num;
-			firstEl.textContent = first;			
+		if (operator === "") {
+			if (num === "") {
+				newStr = first.slice(0, -1);
+				first = newStr;
+			} else {
+				first += num;
+			}	
+				firstEl.textContent = first;					
 		}  
 
-			else if (operator != "") {		
-				second += num;
-				secondEl.textContent = second;
+			else if (operator != "") {
+				if (num === "") {
+					newStr = second.slice(0, -1);
+					second = newStr;
+				} else {
+					second += num;					
+				}	
+				secondEl.textContent = second;				
 			}
 					
 	}
