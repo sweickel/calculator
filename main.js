@@ -56,7 +56,7 @@ function setEventListeners() {
 		});	
 	}
 
-	document.addEventListener('keydown', (event) => {
+	window.addEventListener('keydown', (event) => {
 			
 			if (event.keyCode === 107) {
 				addOperator("+");
@@ -73,9 +73,11 @@ function setEventListeners() {
 					addOperator("/");
 				}
 
-				else if (event.keyCode === 13) {
+
+				// Bugs happens here for some reason after clear is pressed
+				/*else if (event.keyCode === 13) {
 					answer();
-				}
+				}*/
 
 				else if (event.keyCode === 110) {
 					addDecimal();
@@ -93,10 +95,10 @@ function setEventListeners() {
 	
 	//clears texts and clears element variable
 	domId(clear).addEventListener('click', (event) => {
+			solution = "";	
 			clearEl();
 			clearText();
-			solution = "";
-		});
+			});
 	
 	//decimal event listener
 	domId(decimal).addEventListener('click', (event) => {
