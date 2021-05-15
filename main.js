@@ -75,9 +75,9 @@ function setEventListeners() {
 
 
 				// Bugs happens here for some reason after clear is pressed
-				/*else if (event.keyCode === 13) {
+				else if (event.keyCode === 13) {
 					answer();
-				}*/
+				}
 
 				else if (event.keyCode === 110) {
 					addDecimal();
@@ -98,7 +98,7 @@ function setEventListeners() {
 			solution = "";	
 			clearEl();
 			clearText();
-			});
+	});
 	
 	//decimal event listener
 	domId(decimal).addEventListener('click', (event) => {
@@ -213,9 +213,8 @@ function setEventListeners() {
 
 	//function that adds each number to a string and shows it on display
 	function number(num) {
-
 	let newStr = "";
-
+	document.getElementById("clear").blur();
 		if (first === "") {
 			clearText();
 		}
