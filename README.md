@@ -1,4 +1,4 @@
 
-sweickel.github.io/calculator
+[Calculator](sweickel.github.io/calculator)
 
 GitHub Pages hosted site
